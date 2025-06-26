@@ -1,0 +1,36 @@
+name: Login with System-assigned Managed Identity
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main
+  workflow_dispatch:        # ✅ Manual trigger enabled
+
+jobs:
+  test-managed-identity:
+    runs-on: self-hosted  # Targets your Azure Windows VM runner
+
+    steps:
+      - name: Azure Login with System-assigned Managed Identity
+        uses: azure/login@v2
+        with:
+          auth-type: IDENTITY
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          enable-AzPSSession: true
+
+      - name: Azure CLI command
+        uses: azure/cli@v2
+        with:
+          azcliversion: latest
+          inlineScript: |
+            echo "🔍 Showing Azure Account"
+            az account show
+
+      - name: Azure PowerShell script
+        uses: azure/powershell@v2
+        with:
+          azPSVersion: latest
+          inlineScript: |
+            Write-Host "⚡ Getting current Azure context"
+            Get-AzContext
