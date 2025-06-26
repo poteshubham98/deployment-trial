@@ -22,10 +22,20 @@ jobs:
         run: az bicep install
         shell: pwsh
 
-      - name: Deploy Storage Account using Bicep
+      - name: Deploy Bicep Template
         run: |
-          az deployment group create `
+          Write-Host "🔁 Running Bicep deployment..."
+          $result = az deployment group create `
             --resource-group github-cicd `
             --template-file infra/storageaccount.bicep `
-            --parameters storageAccountName=storagedemo123 location=eastus
+            --parameters storageAccountName=storagedemo123 location=eastus `
+            --output json
+
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "❌ Deployment failed."
+            exit 1
+          } else {
+            Write-Host "✅ Deployment succeeded!"
+            Write-Host $result
+          }
         shell: pwsh
