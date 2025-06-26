@@ -28,7 +28,7 @@ jobs:
           $result = az deployment group create `
             --resource-group github-cicd `
             --template-file infra/storageaccount.bicep `
-            --parameters storageAccountName=storagedemo123 location=eastus `
+            --parameters storageAccountName=storagedemo159823 location=eastus `
             --output json
 
           if ($LASTEXITCODE -ne 0) {
