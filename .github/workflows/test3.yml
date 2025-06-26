@@ -1,0 +1,31 @@
+name: Deploy Azure Storage Account
+
+on:
+  workflow_dispatch:  # Allows manual trigger
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Azure Login with System-Assigned Managed Identity
+        uses: azure/login@v2
+        with:
+          auth-type: IDENTITY
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Install Bicep CLI (if not already)
+        run: az bicep install
+        shell: pwsh
+
+      - name: Deploy Bicep Template
+        run: |
+          az deployment group create `
+            --resource-group github-cicd `
+            --template-file infra/storageaccount2.bicep `
+            --parameters infra/storage.parameters.json
+        shell: pwsh
