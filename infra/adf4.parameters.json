@@ -1,0 +1,35 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "dataFactoryName": {
+      "value": "adfdemofactory999283"
+    },
+    "pipelineName": {
+      "value": "copyPipeline"
+    },
+    "location": {
+      "value": "eastus"
+    },
+    "pipelineDefinition": {
+      "value": {
+        "activities": [
+          {
+            "name": "CopyFromBlobToBlob",
+            "type": "Copy",
+            "inputs": [],
+            "outputs": [],
+            "typeProperties": {
+              "source": {
+                "type": "BlobSource"
+              },
+              "sink": {
+                "type": "BlobSink"
+              }
+            }
+          }
+        ]
+      }
+    }
+  }
+}

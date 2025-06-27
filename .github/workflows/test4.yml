@@ -1,0 +1,39 @@
+name: Deploy Storage and ADF
+
+on:
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          auth-type: IDENTITY
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Install Bicep CLI
+        run: az bicep install
+        shell: pwsh
+
+      - name: Deploy Storage Account
+        run: |
+          az deployment group create `
+            --resource-group github-cicd `
+            --template-file infra/storage.bicep `
+            --parameters infra/storage.parameters.json
+        shell: pwsh
+
+      - name: Deploy ADF and Pipeline
+        run: |
+          az deployment group create `
+            --resource-group github-cicd `
+            --template-file infra/adf.bicep `
+            --parameters infra/adf.parameters.json
+        shell: pwsh
