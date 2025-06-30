@@ -26,22 +26,21 @@ jobs:
         run: |
           az deployment group create `
             --resource-group github-cicd `
-            --template-file infra/storage.bicep `
+            --template-file infra/storageaccount.bicep `
             --parameters infra/storage.parameters.json
         shell: pwsh
 
       - name: Deploy ADF and Pipeline
         run: |
-            try {
+          try {
             az deployment group create `
               --resource-group github-cicd `
               --template-file infra/adf4.bicep `
               --parameters infra/adf4.parameters.json `
               --debug
           } catch {
-            Write-Host "❌ Deployment failed."
+            Write-Host "❌ Deployment failed. try again"
             $_ | Format-List -Force
             exit 1
           }
         shell: pwsh
-
