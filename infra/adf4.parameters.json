@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "dataFactoryName": {
-      "value": "adfdemofactory999sp2433"
+      "value": "adfdemofactorysp98"
     },
     "pipelineName": {
       "value": "copyPipeline"
