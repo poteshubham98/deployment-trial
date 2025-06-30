@@ -32,8 +32,16 @@ jobs:
 
       - name: Deploy ADF and Pipeline
         run: |
-          az deployment group create `
-            --resource-group github-cicd `
-            --template-file infra/adf.bicep `
-            --parameters infra/adf.parameters.json
+            try {
+            az deployment group create `
+              --resource-group github-cicd `
+              --template-file infra/adf4.bicep `
+              --parameters infra/adf4.parameters.json `
+              --debug
+          } catch {
+            Write-Host "❌ Deployment failed."
+            $_ | Format-List -Force
+            exit 1
+          }
         shell: pwsh
+
