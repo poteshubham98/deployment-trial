@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "storageAccountName": {
-      "value": "storagedemosp987"
+      "value": "storagedemosp98s7"
     },
     "location": {
       "value": "eastus"
