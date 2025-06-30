@@ -3,7 +3,7 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "dataFactoryName": {
-      "value": "adfdemofactory999283"
+      "value": "adfdemofactory999sp2433"
     },
     "pipelineName": {
       "value": "copyPipeline"
@@ -13,22 +13,24 @@
     },
     "pipelineDefinition": {
       "value": {
-        "activities": [
-          {
-            "name": "CopyFromBlobToBlob",
-            "type": "Copy",
-            "inputs": [],
-            "outputs": [],
-            "typeProperties": {
-              "source": {
-                "type": "BlobSource"
-              },
-              "sink": {
-                "type": "BlobSink"
+        "properties": {
+          "activities": [
+            {
+              "name": "CopyFromBlobToBlob",
+              "type": "Copy",
+              "inputs": [],
+              "outputs": [],
+              "typeProperties": {
+                "source": {
+                  "type": "BlobSource"
+                },
+                "sink": {
+                  "type": "BlobSink"
+                }
               }
             }
-          }
-        ]
+          ]
+        }
       }
     }
   }
